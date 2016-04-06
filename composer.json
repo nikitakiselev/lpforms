@@ -27,7 +27,5 @@
         "phpmailer/phpmailer": "^5.2",
         "phpunit/php-text-template": "^1.2"
     },
-    "config": {
-        "preferred-install": "dist"
-    }
+    "minimum-stability": "stable"
 }
