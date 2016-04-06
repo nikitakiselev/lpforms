@@ -1,0 +1,30 @@
+{
+    "name": "digitalhammer/lpforms",
+    "description": "Easy create landing page forms",
+    "keywords": ["digitalhammer", "ajax forms", "landing page forms", "lpforms"],
+    "type": "library",
+    "license" : "MIT",
+    "require": {
+        "vlucas/valitron": "^1.2",
+        "phpmailer/phpmailer": "^5.2",
+        "phpunit/php-text-template": "^1.2"
+    },
+    "authors": [
+        {
+            "name": "Nikita Kiselev",
+            "email": "kiselev2008@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/digitalhammer/lpforms/issues"
+    },
+    "autoload": {
+        "psr-4": {"DigitalHammer\\LpForms\\": "src/"}
+    },
+    "require": {
+        "php": ">=5.5",
+        "vlucas/valitron": "^1.2",
+        "phpmailer/phpmailer": "^5.2",
+        "phpunit/php-text-template": "^1.2"
+    }
+}
