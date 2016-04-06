@@ -1,12 +1,22 @@
 # lpforms
 Easy create landing page forms
 
-```composer require digitalhammer\lpforms dev-master```
+```
+composer require digitalhammer\lpforms dev-master
+bower install digitalhammer\ajax-forms
+```
+
 
 ## How to use
 
+Use with ```https://github.com/digitalhammer/ajax-forms```
+
 **File structure**
 ```
+|- bower_components
+|   |- ajax-forms
+|      |- AjaxForm.js
+|
 |- emails
 |   |- contact_template.tpl.php
 |
@@ -16,17 +26,25 @@ Easy create landing page forms
 
 **index.html**
 ```html
-<form action="form-handler.php" method="post">
-  <input type="hidden" name="form_id" value="contact"/>
-  
-  <div class="form-group">
-    <label for="email" class="control-label">Your e-mail</label>
-    <input type="email" id="email" name="email" value="" class="form-control"/>
-    <div class="help-block"></div>
-  </div>
-  
-  <button type="submit">Send Form!</button>
-</form>
+  <body>
+    <form action="form-handler.php" method="post" id="contact-form">
+      <input type="hidden" name="form_id" value="contact"/>
+      
+      <div class="form-group">
+        <label for="email" class="control-label">Your e-mail</label>
+        <input type="email" id="email" name="email" value="" class="form-control"/>
+        <div class="help-block"></div>
+      </div>
+      
+      <button type="submit">Send Form!</button>
+    </form>
+    
+    <script src="/bower_components/ajax-forms/AjaxForm.js"></script>
+    <script>
+      var contactForm = new AjaxForm('#contact-form');
+    </script>
+  </body>
+</html>
 ```
 
 **form-handler.php**
