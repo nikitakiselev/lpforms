@@ -13,8 +13,10 @@ class Mailer
     private $nameFrom = '';
     private $mailTo;
     private $mail;
+    private $isSmtp = false;
+    private $config;
 
-    public function __construct($from, $mailTo)
+    public function __construct($from, $mailTo, $config = [])
     {
         if (is_array($from))
         {
@@ -26,6 +28,12 @@ class Mailer
 
         $this->mailTo = $mailTo;
         $this->mail = new PHPMailer();
+        $this->config = $config;
+    }
+
+    public function useSmtp($value = true)
+    {
+        $this->isSmtp = $value;
     }
 
     public function setSubject($subject)
@@ -40,6 +48,18 @@ class Mailer
 
     public function send()
     {
+        if ($this->isSmtp)
+        {
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = $this->config('smtp_host');             // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $this->config('smtp_username');     // SMTP username
+            $mail->Password = $this->config('smtp_password');     // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = $this->config('smtp_port', 587);        // TCP port to connect to
+        }
+        
+
         $this->mail->setFrom($this->mailFrom, $this->nameFrom);
         $this->mail->addAddress($this->mailTo);
         $this->mail->Subject = $this->subject;
@@ -47,6 +67,13 @@ class Mailer
         $this->mail->CharSet = 'UTF-8';
 
         return $this->mail->send();
+    }
+
+    protected function config($key, $default = null)
+    {
+        return isset($this->config[$key])
+            ? $this->config[$key]
+            : $default;
     }
 
     public function getErrors()
