@@ -55,13 +55,13 @@ class Mailer
     {
         if ($this->isSmtp)
         {
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = $this->config('smtp_host');             // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = $this->config('smtp_username');     // SMTP username
-            $mail->Password = $this->config('smtp_password');     // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = $this->config('smtp_port', 587);        // TCP port to connect to
+            $this->mail->isSMTP();                                      // Set mailer to use SMTP
+            $this->mail->Host = $this->config('smtp_host');             // Specify main and backup SMTP servers
+            $this->mail->SMTPAuth = $this->config('smtp_auth', true);                               // Enable SMTP authentication
+            $this->mail->Username = $this->config('smtp_username');     // SMTP username
+            $this->mail->Password = $this->config('smtp_password');     // SMTP password
+            $this->mail->SMTPSecure = $this->config('smtp_secure', 'tls');                            // Enable TLS encryption, `ssl` also accepted
+            $this->mail->Port = $this->config('smtp_port', 587);        // TCP port to connect to
         }
 
         $this->mail->setFrom($this->mailFrom, $this->nameFrom);
