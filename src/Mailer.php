@@ -11,7 +11,7 @@ class Mailer
 
     private $mailFrom;
     private $nameFrom = '';
-    private $mailTo;
+    private $mailTo = [];
     private $mail;
     private $isSmtp = false;
     private $config;
@@ -26,7 +26,7 @@ class Mailer
             $this->mailFrom = $from;
         }
 
-        $this->mailTo = $mailTo;
+        $this->mailTo[] = $mailTo;
         $this->mail = new PHPMailer();
         $this->config = $config;
     }
@@ -46,6 +46,11 @@ class Mailer
         $this->message = $message;
     }
 
+    public function addAddress($emailTo)
+    {
+        return $this->mailTo[] = $emailTo;
+    }
+
     public function send()
     {
         if ($this->isSmtp)
@@ -58,10 +63,13 @@ class Mailer
             $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
             $mail->Port = $this->config('smtp_port', 587);        // TCP port to connect to
         }
-        
 
         $this->mail->setFrom($this->mailFrom, $this->nameFrom);
-        $this->mail->addAddress($this->mailTo);
+
+        foreach ($this->mailTo as $address) {
+            $this->mail->addAddress($address);
+        }
+        
         $this->mail->Subject = $this->subject;
         $this->mail->Body = $this->message;
         $this->mail->CharSet = 'UTF-8';
