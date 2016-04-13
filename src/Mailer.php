@@ -70,6 +70,7 @@ class Mailer
             $this->mail->addAddress($address);
         }
         
+        $this->mail->isHTML($this->config('html', true));
         $this->mail->Subject = $this->subject;
         $this->mail->Body = $this->message;
         $this->mail->CharSet = 'UTF-8';
