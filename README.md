@@ -2,8 +2,8 @@
 Easy create landing page forms
 
 ```
-composer require digitalhammer\lpforms dev-master
-bower install digitalhammer\ajax-forms
+composer require digitalhammer/lpforms
+bower install digitalhammer/ajax-forms
 ```
 
 
