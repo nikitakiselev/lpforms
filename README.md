@@ -86,7 +86,16 @@ $formHandler = new FormHandler();
 $formHandler->addForm($contactForm);
 
 // Handle form!
-$formHandler->handle($formId);
+try {
+    
+    $formHandler->handle($formId);
+
+} catch (Exception $exception) {
+
+    $response = new \DigitalHammer\LpForms\ResponseJson();
+
+    echo $response->fail($exception->getMessage());
+}
 ```
 
 **emails/contact_template.tpl.php**
