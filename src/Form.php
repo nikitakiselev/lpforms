@@ -19,13 +19,13 @@ class Form
 
     private $templateData;
 
-    public function __construct($formId, $post, $mailer)
+    public function __construct($formId, $post, $mailer, $lang = 'ru')
     {
         $this->formId = $formId;
         $this->post = $post;
         $this->mailer = $mailer;
 
-        Validator::lang('ru');
+        Validator::lang($lang);
         $this->validator = new Validator($this->post);
         $this->response = new ResponseJson();
         $this->setMessageBodyTemplate($formId);
