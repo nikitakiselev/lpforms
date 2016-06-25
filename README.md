@@ -29,6 +29,7 @@ Use with ```https://github.com/digitalhammer/ajax-forms```
   <body>
     <form action="form-handler.php" method="post" id="contact-form">
       <input type="hidden" name="form_id" value="contact"/>
+      <input type="hidden" name="foo" value="bar">
       
       <div class="form-group">
         <label for="email" class="control-label">Your e-mail</label>
@@ -72,11 +73,13 @@ $mailTo = 'to@mail.com';
  */
 $contactFormMailer = new Mailer($mailFrom, $mailTo);
 $contactFormMailer->setSubject('New request from ' . $siteName);
-$contactkForm = new Form('contact', $post, $contactFormMailer);
+$contactForm = new Form('contact', $post, $contactFormMailer);
 $contactForm
     ->addField('email', ['required', 'email'])
+    ->addField('foo', [])
     ->setFieldNames([
         'email' => 'Your e-mail',
+        'foo' => 'Foo',
     ])
     ->setMessageBodyTemplate('emails/contact', [
         'form_name' => "Request from site $siteName"
@@ -92,16 +95,18 @@ try {
 
 } catch (Exception $exception) {
 
-    $response = new \DigitalHammer\LpForms\ResponseJson();
+    (new \DigitalHammer\LpForms\ResponseJson())->fail(
+      $exception->getMessage()
+    );
 
-    echo $response->fail($exception->getMessage());
 }
 ```
 
 **emails/contact_template.tpl.php**
 ```html
-<p>New form request.</p>
+<p>New form request "{form_name}".</p>
 <p>Form was sended at: {current_date}</p>
+<p>Custom field: {foo}</p>
 <p>Form data:</p>
 <ul>
   <li>Email: {email}</li>
