@@ -16,7 +16,7 @@ class ResponseJson
         http_response_code($this->responseCode);
         header('Content-Type: application/json');
 
-        print json_encode($data);
+        echo json_encode($data);
     }
 
     public function setResponseCode($responseCode)
@@ -28,7 +28,7 @@ class ResponseJson
 
     public function success($message)
     {
-        return $this->make([
+        $this->make([
             'status' => 'success',
             'message' => $message,
         ]);
@@ -36,7 +36,7 @@ class ResponseJson
 
     public function fail($message)
     {
-        return $this->make([
+        $this->make([
             'status' => 'fail',
             'message' => $message,
         ]);
