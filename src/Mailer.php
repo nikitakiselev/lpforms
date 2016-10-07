@@ -2,7 +2,7 @@
 
 namespace DigitalHammer\LpForms;
 
-use \PHPMailer as PHPMailer;
+use PHPMailer as PHPMailer;
 
 class Mailer
 {

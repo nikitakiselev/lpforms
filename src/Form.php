@@ -2,22 +2,19 @@
 
 namespace DigitalHammer\LpForms;
 
-use \Valitron\Validator as Validator;
-use \Text_Template as Template;
+use Text_Template as Template;
+use Valitron\Validator as Validator;
 
 class Form
 {
-    public $formId;
     private $post;
-    private $fields;
-
     private $rules;
-    private $attributeNames;
+    public $formId;
+    private $fields;
     private $validator;
-
     private $templateFile;
-
     private $templateData;
+    private $attributeNames;
 
     public function __construct($formId, $post, $mailer, $lang = 'ru')
     {
