@@ -16,7 +16,14 @@ class Form
     private $templateData;
     private $attributeNames;
 
-    public function __construct($formId, $post, $mailer, $lang = 'ru')
+    /**
+     * Form constructor.
+     * @param string $formId Form identificator
+     * @param array $post $_POST data array
+     * @param \DigitalHammer\LpForms\Mailer $mailer Mailer instance
+     * @param string $lang language for validator
+     */
+    public function __construct($formId, array $post, $mailer, $lang = 'ru')
     {
         $this->formId = $formId;
         $this->post = $post;
@@ -28,18 +35,35 @@ class Form
         $this->setMessageBodyTemplate($formId);
     }
 
+    /**
+     * Set validation rules for the form
+     *
+     * @param array $rules
+     */
     public function setRules(array $rules)
     {
         $this->rules = $rules;
     }
 
-    public function setFieldNames($attributeNames)
+    /**
+     * Set fiels names for the form
+     *
+     * @param array $attributeNames
+     * @return $this
+     */
+    public function setFieldNames(array $attributeNames)
     {
         $this->attributeNames = $attributeNames;
 
         return $this;
     }
 
+    /**
+     * Compound rule
+     *
+     * @param string $rule
+     * @return array|bool
+     */
     private function compoundRule($rule)
     {
         $exploded = explode(':', $rule);
@@ -47,10 +71,13 @@ class Form
         return count($exploded) > 1 ? $exploded : false;
     }
 
+    /**
+     * Set validation rules for valitron
+     *
+     * @return $this
+     */
     private function setValidationRules()
     {
-        $validatorRules = [];
-
         foreach ($this->fields as $field => $rules) {
             foreach ($rules as $rule) {
                 if ($compoundRule = $this->compoundRule($rule)) {
@@ -64,12 +91,23 @@ class Form
         return $this;
     }
 
+    /**
+     * Set template for mail
+     *
+     * @param string $template
+     * @param array $data
+     */
     public function setMessageBodyTemplate($template, $data = [])
     {
         $this->templateFile = $template . '_template.tpl.php';
         $this->templateData = $data;
     }
 
+    /**
+     * Validate form
+     *
+     * @return mixed
+     */
     private function validate()
     {
         $this->validator->labels($this->attributeNames);
@@ -78,11 +116,22 @@ class Form
         return $this->validator->validate();
     }
 
+    /**
+     * Get the validation rules
+     *
+     * @return mixed
+     */
     private function validationErrors()
     {
         return $this->validator->errors();
     }
 
+    /**
+     * Get the form field label
+     *
+     * @param string $field
+     * @return string
+     */
     public function getLabel($field)
     {
         return isset($this->attributeNames[$field])
@@ -90,6 +139,12 @@ class Form
             : $field;
     }
 
+    /**
+     * Get the form field value
+     *
+     * @param string $field
+     * @return string
+     */
     public function getValue($field)
     {
         return isset($this->post[$field])
@@ -97,6 +152,11 @@ class Form
             : '';
     }
 
+    /**
+     * Generate mail body
+     *
+     * @return mixed
+     */
     protected function generateMessageBody()
     {
         $template = new Template($this->templateFile);
@@ -117,6 +177,9 @@ class Form
         return $template->render();
     }
 
+    /**
+     * Handle the form
+     */
     public function handle()
     {
         if ($this->validate())
@@ -138,6 +201,13 @@ class Form
             ->make($this->validationErrors());
     }
 
+    /**
+     * Add field to the form
+     *
+     * @param string $name
+     * @param array $rules
+     * @return $this
+     */
     public function addField($name, array $rules)
     {
         $this->fields[$name] = $rules;
