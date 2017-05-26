@@ -1,20 +1,21 @@
 <?php
 
-namespace DigitalHammer\LpForms;
+namespace Nikitakiselev\LpForms;
 
-use Exception;
+use Nikitakiselev\Exceptions\FormHandlerException;
 
 class FormHandler
 {
     /**
-     * @var \DigitalHammer\LpForms\Form
+     * @var \Nikitakiselev\LpForms\Form
      */
-    private $forms;
+    protected $forms;
 
     /**
      * Add form to the handler
      *
-     * @param \DigitalHammer\LpForms\Form $form
+     * @param \Nikitakiselev\LpForms\Form $form
+     *
      * @return Form
      */
     public function addForm(Form $form)
@@ -26,6 +27,7 @@ class FormHandler
      * Check for the form is handled
      *
      * @param string $formId
+     *
      * @return bool
      */
     public function isHandled($formId)
@@ -37,8 +39,9 @@ class FormHandler
      * Handle the form
      *
      * @param string $formId
-     * @return \DigitalHammer\LpForms\ResponseJson
-     * @throws \Exception
+     *
+     * @return \Nikitakiselev\LpForms\ResponseJson
+     * @throws \Nikitakiselev\Exceptions\FormHandlerException
      */
     public function handle($formId)
     {
@@ -47,6 +50,6 @@ class FormHandler
             return $this->forms[$formId]->handle();
         }
         
-        throw new Exception('Form with id "' . $formId . '" not handled.' );
+        throw new FormHandlerException('Form with id "' . $formId . '" not handled.' );
     }
 }

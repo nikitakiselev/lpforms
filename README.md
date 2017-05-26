@@ -2,14 +2,14 @@
 Easy create landing page forms
 
 ```
-composer require digitalhammer/lpforms
-bower install digitalhammer/ajax-forms
+composer require nikitakiselev/lpforms
+bower install nikitakiselev/ajax-forms
 ```
 
 
 ## How to use
 
-Use with ```https://github.com/digitalhammer/ajax-forms```
+Use with ```https://github.com/nikitakiselev/ajax-forms```
 
 **File structure**
 ```
@@ -57,9 +57,9 @@ date_default_timezone_set('Europe/Moscow');
 $post = $_POST;
 $formId = isset($post['form_id']) ? $post['form_id'] : null;
 
-use DigitalHammer\LpForms\Form;
-use DigitalHammer\LpForms\Mailer;
-use DigitalHammer\LpForms\FormHandler;
+use Nikitakiselev\LpForms\Form;
+use Nikitakiselev\LpForms\Mailer;
+use Nikitakiselev\LpForms\FormHandler;
 
 /**
  * Settings
@@ -95,7 +95,7 @@ try {
 
 } catch (Exception $exception) {
 
-    (new \DigitalHammer\LpForms\ResponseJson())->fail(
+    (new \Nikitakiselev\LpForms\ResponseJson())->fail(
       $exception->getMessage()
     );
 

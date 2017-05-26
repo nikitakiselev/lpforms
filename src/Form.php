@@ -1,6 +1,6 @@
 <?php
 
-namespace DigitalHammer\LpForms;
+namespace Nikitakiselev\LpForms;
 
 use Text_Template as Template;
 use Valitron\Validator as Validator;

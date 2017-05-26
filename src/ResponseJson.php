@@ -1,6 +1,6 @@
 <?php
 
-namespace DigitalHammer\LpForms;
+namespace Nikitakiselev\LpForms;
 
 class ResponseJson
 {

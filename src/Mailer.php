@@ -1,6 +1,6 @@
 <?php
 
-namespace DigitalHammer\LpForms;
+namespace Nikitakiselev\LpForms;
 
 use PHPMailer as PHPMailer;
 
