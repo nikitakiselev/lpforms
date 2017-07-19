@@ -2,7 +2,7 @@
 
 namespace Nikitakiselev\LpForms;
 
-use Nikitakiselev\Exceptions\FormHandlerException;
+use Nikitakiselev\LpForms\Exceptions\FormHandlerException;
 
 class FormHandler
 {
