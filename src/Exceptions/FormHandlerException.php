@@ -1,6 +1,6 @@
 <?php
 
-namespace Nikitakiselev\Exceptions;
+namespace Nikitakiselev\LpForms\Exceptions;
 
 use Exception;
 
